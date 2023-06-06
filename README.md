@@ -24,7 +24,7 @@ def get_flavours_through_pagination(url_end):
     return flavours_collected
 # ...
 ```
-The `url_end` variable contains the last part of the url of the next page I need to navigate to. This information was extracted from the `href` attribute of the anchor in the "Next" web page button.
+The `url_end` variable contains the last part of the url of the next page I need to navigate to. After the first loop, this information is extracted from the `href` attribute of the anchor in the "Next" web page button (if present).
 
 ```python
 def get_next_pagination_href(base_url):
@@ -47,4 +47,4 @@ def get_next_pagination_href(base_url):
                 pass
     return (False, None)
 ```
-When the "Next" button can't be found, the script will not try to send a new request for that section (tuple with `False` as first element is returned).
+When the "Next" button can't be found, the script will not try to send a new request for that section (tuple with `False` as first item is returned).
