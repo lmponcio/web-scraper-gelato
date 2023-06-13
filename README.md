@@ -1,4 +1,4 @@
-# Gelato web scraper
+# Gelato Web Scraper
 
 Web scraper for downloading icecream names, descriptions and dietary requirements into an excel spreadsheet.
 
