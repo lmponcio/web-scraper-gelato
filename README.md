@@ -9,23 +9,24 @@ I created this web scraper to have data to practice in my [PostgreSQL Database D
 <img src="./media/output_sheet.jpg" width="700" />
 
 ### Inspection
+Here is a screenshot of the inspection for the pagination link. This was a crucial part of the web scraper (to prevent having to hard-code each page into the script).
 
 <img src="./media/inspection.jpg" width="700" />
 
-### Navigation Through pagination (explanation)
+### Navigation Through Pagination (explanation)
 
 I navigated through pagination by sending a request for each "Next" button found:
 
 ```python
 # scraper.py
 # ...
-def get_flavours_through_pagination(url_end):
-    next=(True, url_end)
+def get_flavours_through_pagination(full_url,add_description=False):
+    next=(True, full_url)
     flavours_collected=[]
     while True:
-        full_url=BASE_URL+next[1]
+        full_url=next[1]
         response =requests.get(full_url)
-        flavours=get_flavours(response)
+        flavours=get_flavours(response,add_description=add_description)
         flavours_collected.extend(flavours)
         next=get_next_pagination_href(full_url)
         print("next is ", next)
@@ -35,9 +36,9 @@ def get_flavours_through_pagination(url_end):
     return flavours_collected
 # ...
 ```
-The `url_end` variable contains the last part of the url of the next page I need to navigate to. After the first loop, this information is extracted from the `href` attribute of the anchor in the "Next" web page button (if present).
-
+The `get_next_pagination_href` function will return a tuple with `True` as first item if a link to the next page was found. When the "Next" button can't be found, the script will not try to send a new request for that section (tuple with `False` as first item is returned).
 ```python
+# ...
 def get_next_pagination_href(base_url):
     """ Returns a tuple with a boolean and the href if present
 
@@ -53,9 +54,10 @@ def get_next_pagination_href(base_url):
                 anchor=element.find("a")
                 span=anchor.find("span")
                 if "Next" in span.text:
-                    return (True, anchor['href']) 
+                    return (True, BASE_URL+anchor['href']) 
             except:
                 pass
     return (False, None)
+# ...
 ```
-When the "Next" button can't be found, the script will not try to send a new request for that section (tuple with `False` as first item is returned).
+
