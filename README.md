@@ -1,10 +1,21 @@
-# Icecream web scraper
+# Gelato web scraper
 
-Web scraper for downloading lists of icecream flavours through site pagination.
+Web scraper for downloading icecream names, descriptions and dietary requirements into an excel spreadsheet.
 
 I created this web scraper to have data to practice in my [PostgreSQL Database Design Exercise](https://github.com/lmponcio/postgresql-icecream-db).
 
-Something to note in this project: I figured a way to navigate through pagination (sending a request for each "Next" button found):
+### Output Spreadsheet
+
+<img src="./media/output_sheet.jpg" width="700" />
+
+### Inspection
+
+<img src="./media/inspection.jpg" width="700" />
+
+### Navigation Through pagination (explanation)
+
+I navigated through pagination by sending a request for each "Next" button found:
+
 ```python
 # scraper.py
 # ...
