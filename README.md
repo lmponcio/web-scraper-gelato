@@ -38,6 +38,7 @@ def get_flavours_through_pagination(full_url,add_description=False):
 ```
 The `get_next_pagination_href` function will return a tuple with `True` as first item if a link to the next page was found. When the "Next" button can't be found, the script will not try to send a new request for that section (tuple with `False` as first item is returned).
 ```python
+# scraper.py
 # ...
 def get_next_pagination_href(base_url):
     """ Returns a tuple with a boolean and the href if present
